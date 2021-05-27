@@ -1,10 +1,10 @@
-package com.forbitbd.stdealers.login;
+package com.forbitbd.stdealers.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.forbitbd.stdealers.MainActivity;
+import com.forbitbd.stdealers.ui.main.MainActivity;
 import com.forbitbd.stdealers.R;
 import com.forbitbd.stdealers.utils.BaseActivity;
 import com.google.android.gms.auth.api.Auth;
@@ -28,16 +28,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mpresenter = new LoginPresenter(this);
         signInButton = findViewById(R.id.google_sign_in);
         signInButton.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            startMainActivity();
-            finish();
-        }
     }
 
     @Override
@@ -66,6 +56,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void startMainActivity() {
         finish();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

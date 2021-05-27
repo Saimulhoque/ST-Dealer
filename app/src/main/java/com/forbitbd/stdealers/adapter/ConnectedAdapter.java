@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.forbitbd.stdealers.ItemCLickListener;
 import com.forbitbd.stdealers.R;
 import com.forbitbd.stdealers.models.Device;
 
@@ -18,10 +19,12 @@ public class ConnectedAdapter extends RecyclerView.Adapter<ConnectedAdapter.MyVi
 
     private Context context;
     private List<Device> deviceList;
+    private ItemCLickListener listener;
 
-    public ConnectedAdapter(Context context, List<Device> deviceList) {
+    public ConnectedAdapter(Context context, List<Device> deviceList, ItemCLickListener listener) {
         this.context = context;
         this.deviceList = deviceList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -62,6 +65,12 @@ public class ConnectedAdapter extends RecyclerView.Adapter<ConnectedAdapter.MyVi
             tv5 = itemView.findViewById(R.id.customer_phone);
             tv6 = itemView.findViewById(R.id.customer_email);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.ItemCLick(getAdapterPosition());
+                }
+            });
         }
     }
 }

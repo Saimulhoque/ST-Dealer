@@ -3,14 +3,15 @@ package com.forbitbd.stdealers.models;
 import java.io.Serializable;
 
 public class Dealer implements Serializable {
-
     private String _id;
     private String name;
     private String email;
-    private String contact;
+    private String mobile;
     private String image;
     private String address;
     private String organization_name;
+    private String fcm_token;
+    private Boolean is_active;
 
     public Dealer() {
     }
@@ -39,12 +40,12 @@ public class Dealer implements Serializable {
         this.email = email;
     }
 
-    public String getContact() {
-        return contact;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getImage() {
@@ -69,6 +70,21 @@ public class Dealer implements Serializable {
 
     public void setOrganization_name(String organization_name) {
         this.organization_name = organization_name;
+    }
+    public String getFcm_token() {
+        return fcm_token;
+    }
+
+    public void setFcm_token(String fcm_token) {
+        this.fcm_token = fcm_token;
+    }
+
+    public Boolean getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(Boolean is_active) {
+        this.is_active = is_active;
     }
 
 

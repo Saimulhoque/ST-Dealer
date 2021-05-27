@@ -1,4 +1,4 @@
-package com.forbitbd.stdealers;
+package com.forbitbd.stdealers.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

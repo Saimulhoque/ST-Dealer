@@ -7,7 +7,7 @@
     android:background="@color/main"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context=".DeviceEntryFormFragment">
+    tools:context=".ui.fragments.DeviceEntryFormFragment">
 
     <LinearLayout
         android:id="@+id/one"
@@ -42,11 +42,12 @@
             app:hintEnabled="false">
 
             <AutoCompleteTextView
-                android:id="@+id/vehicletype"
+                android:id="@+id/vehicle_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Vehicle Type"
-                android:inputType="none"></AutoCompleteTextView>
+                android:inputType="none"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

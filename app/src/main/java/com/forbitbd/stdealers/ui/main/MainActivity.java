@@ -1,4 +1,4 @@
-package com.forbitbd.stdealers;
+package com.forbitbd.stdealers.ui.main;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
@@ -9,14 +9,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.forbitbd.stdealers.login.LoginActivity;
+import com.forbitbd.stdealers.WelcomeFragment;
+import com.forbitbd.stdealers.ui.fragments.ConnectedFragment;
+import com.forbitbd.stdealers.ui.fragments.DeviceEntryFormFragment;
+import com.forbitbd.stdealers.ui.fragments.PendingFragment;
+import com.forbitbd.stdealers.R;
+import com.forbitbd.stdealers.adapter.ViewPagerAdapter;
+import com.forbitbd.stdealers.ui.profile.ProfileActivity;
+import com.forbitbd.stdealers.ui.login.LoginActivity;
+import com.forbitbd.stdealers.utils.AppPreference;
 import com.forbitbd.stdealers.utils.BaseActivity;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainContract.View{
 
+    private MainPresenter mPresenter;
     private ExtendedFloatingActionButton btnfab;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -28,6 +38,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mPresenter = new MainPresenter(this);
+        mPresenter.updateFirebaseToken();
+
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewpager);
         pendingFragment  = new PendingFragment();
@@ -38,6 +51,12 @@ public class MainActivity extends BaseActivity {
         viewPagerAdapter.addFragment(connectedFragment, "Connected Device");
         viewPager.setAdapter(viewPagerAdapter);
 
+        if (AppPreference.getInstance(this).getDealer().getIs_active()) {
+
+            WelcomeFragment welcome_fragment = new WelcomeFragment();
+            welcome_fragment.setCancelable(false);
+            welcome_fragment.show(getSupportFragmentManager(), "GHGJHGJHGHJ");
+        }
         setupToolbar(R.id.toolbar);
         btnfab = findViewById(R.id.req);
         btnfab.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +82,15 @@ public class MainActivity extends BaseActivity {
             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
         } else if (id == R.id.logout) {
+            AppPreference.getInstance(this).setDealer(null);
             signOut();
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

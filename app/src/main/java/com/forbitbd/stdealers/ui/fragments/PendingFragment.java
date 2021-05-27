@@ -1,4 +1,4 @@
-package com.forbitbd.stdealers;
+package com.forbitbd.stdealers.ui.fragments;
 
 import android.os.Bundle;
 
@@ -11,19 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.forbitbd.stdealers.R;
 import com.forbitbd.stdealers.adapter.ConnectedAdapter;
+import com.forbitbd.stdealers.adapter.PendingAdapter;
 import com.forbitbd.stdealers.models.Device;
 
 import java.util.ArrayList;
 
-public class ConnectedFragment extends Fragment {
+public class PendingFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ArrayList<Device> deviceList;
-    private ConnectedAdapter adapter;
+    private PendingAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
 
-    public ConnectedFragment() {
+    public PendingFragment() {
         // Required empty public constructor
     }
 
@@ -37,14 +39,14 @@ public class ConnectedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_connected, container, false);
+        View view = inflater.inflate(R.layout.fragment_pending, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         deviceList = new ArrayList<>();
         deviceList.add(new Device("Dhaka Metro 12-5783", "Truck", "01824465858", "Saimul Hoque", "01881269553", "saimulhqoue8217@gmail.com"));
-        adapter = new ConnectedAdapter(getContext(), deviceList);
+        adapter = new PendingAdapter(getContext(), deviceList);
         recyclerView.setAdapter(adapter);
 
         refreshLayout = view.findViewById(R.id.refresh);
